@@ -6,3 +6,6 @@ and then begin reading more aggressively from the watch.  It's possible that thi
 PDF is included in this repo for those who want to play along at home.
 
 **get-version.py** and **read-eeprom.py** are copied directly from the paper.
+
+Also thanks to the author of http://dan3lmi.blogspot.com/2012/10/sniffing-usb-traffic-different.html for
+**bus-comm.py** and information on using the **lsusb** command in linux.
