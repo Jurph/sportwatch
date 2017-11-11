@@ -1,0 +1,56 @@
+#!/ usr / bin /python2
+NIKE_VENDOR_ID = 0x11ac
+1
+This is based on the output logged to file, we did not have an other version device to
+confirm this
+13
+NIKE_PRODUCT_ID = 0x5455
+import
+usb.core
+import
+usb.u t i l
+import
+usb.control
+dev = usb.core.find( idVendor=NIKE_VENDOR_ID,  idProduct=NIKE_PRODUCT_ID)
+i f
+dev.is_kernel_driver_active( 0 ) :
+print
+( ’ Detaching␣ kernal ␣ driver \n ’ )
+dev.detach_kernel_driver(0)
+cfg = usb.util. find_descriptor( dev ,  bConfigurationValue=1)
+iface = cfg [( 0 , 0 ) ]
+bytes_num = [
+0x09 , 0x05 , 0xb3 , 0x10 , 0x00 , 0x00 , 0x00 , 0x00 ,
+0x00 , 0x00 , 0x00 , 0x00 , 0x00 , 0x00 , 0x00 , 0x00 ,
+0x00 , 0x00 , 0x00 , 0x00 , 0x00 , 0x00 , 0x00 , 0x00 ,
+0x00 , 0x00 , 0x00 , 0x00 , 0x00 , 0x00 , 0x00 , 0x00 ,
+0x00 , 0x00 , 0x00 , 0x00 , 0x00 , 0x00 , 0x00 , 0x00 ,
+0x00 , 0x00 , 0x00 , 0x00 , 0x00 , 0x00 , 0x00 , 0x00 ,
+0x00 , 0x00 , 0x00 , 0x00 , 0x00 , 0x00 , 0x00 , 0x00 ,
+0x00 , 0x00 , 0x00 , 0x00 , 0x00 , 0x00 , 0x00 , 0x00 ]
+data_raw = "" .join(
+map
+(
+chr
+,  bytes_num ))
+while
+True :
+#Clean  outstanding
+try
+:
+outs = iface [ 0 ].read(64)
+print
+( "Outstanding: " )
+print ( outs )
+except:
+    break
+
+print
+( "Writing packet " )
+
+iface [ 1 ].write( data_raw )
+o = open("raw1.OUT" , "wb")
+
+while True :
+    data = iface [ 0 ].read(64)[:]
+    print(data[:])
