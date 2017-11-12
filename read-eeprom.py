@@ -8,11 +8,12 @@ import usb.control
 dev = usb.core.find(idVendor=NIKE_VENDOR_ID,  idProduct=NIKE_PRODUCT_ID)
 if dev.is_kernel_driver_active( 0 ) :
     print("Detaching kernel driver\n")
+    dev.detach_kernel_driver(0)
 
-dev.detach_kernel_driver(0)
-cfg = usb.util.find_descriptor(dev, bConfigurationValue=1)
-iface = cfg[(0, 0)]
+configuration = usb.util.find_descriptor(dev, bConfigurationValue=1)
+interface = configuration[(0, 0)]
 
+#  This is a packet that reads data out of the EEPROM on board.
 bytes_num = [0x09, 0x05, 0xb3, 0x10, 0x00, 0x00, 0x00, 0x00,
              0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
              0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -26,7 +27,7 @@ data_raw = "" .join(map(chr,  bytes_num))
 while True:
     #Clean  outstanding
     try:
-        outs = iface [ 0 ].read(64)
+        outs = interface [ 0].read(64)
         print("Outstanding: ")
         print ( outs )
     except: 
@@ -34,9 +35,9 @@ while True:
 
 print("Writing packet ")
 
-iface[1].write(data_raw)
+interface[1].write(data_raw)
 o = open("raw1.OUT", "wb")
 
 while True:
-    data = iface[0].read(64)[:]
+    data = interface[0].read(64)[:]
     print(data[:])

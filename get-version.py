@@ -6,7 +6,6 @@ import usb.core
 import usb.util
 import usb.control
 
-
 dev = usb.core.find(idVendor=NIKE_VENDOR_ID,  idProduct=NIKE_PRODUCT_ID)
 
 if dev.is_kernel_driver_active(0):
