@@ -37,3 +37,4 @@ print ("Version : %s%d"%(letter, code ))
 # With this code python will replay the packet to obtain a version number, and
 # will print what our analysis shows is the version from the response. The byte at
 # offset 3 an ASCII character, and 4 and 5 a big-endian 16Bit integer
+
