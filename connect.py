@@ -7,7 +7,14 @@ import binascii
 NIKE_VENDOR_ID = 0x11ac
 NIKE_PRODUCT_ID = 0x5455
 
-COMMAND_BYTES = [0xE2, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+# 0x0905B310 + zeroes : read-eeprom
+# 0x09022908 + zeroes : get-version
+# First byte is fixed at 0x09
+# Second and third bytes are a mystery
+# Fourth byte is OPCODE
+#
+
+COMMAND_BYTES = [0x09, 0x05, 0xB3, 0xE2, 0x00, 0x00, 0x00, 0x00,
                  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -34,11 +41,13 @@ def sendCommand(device, interface, rawCommand):
     interface[1].write(rawCommand)
     o = open("raw1.OUT", "wb")
     while True:
-        data = interface[0].read(255)[:]
-        print(data[:])
-        o.write("".join(map(chr, data)))
-        nop = interface[0].read(0, 1)[:]
-
+        try:
+            data = interface[0].read(255)[:]
+            print(data[:])
+            o.write("".join(map(chr, data)))
+            nop = interface[0].read(0, 1)[:]
+        except:
+            break
 
 def connect(Vendor_ID, Product_ID):
     device = usb.core.find(idVendor=Vendor_ID, idProduct=Product_ID)
