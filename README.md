@@ -33,6 +33,7 @@ Here are some interesting commands I found in the *commands.xml* appendix...
 - 0x26 - **flags-sync** - probably holds stateful flags
 - 0x36 - **option-gender** - pass a string (not a BOOL or INT!) to this field
 - 0x41 - **write-attaboy** - probably adds a string to the motivational post-workout 'attaboys'
+- 0x51 - **ephemeris-query** - get ephemerides info (may have satIDs)
 - 0x53 - **gpspatch-query** - reads patch level of GPS firmware
 - 0x54 - **gpspatch-update** - takes a binary, presumably GPS modem firmware! Oooooo...
 - 0xE4 - **test-gps** - (test no 1-4, satellite ID, and duration)
