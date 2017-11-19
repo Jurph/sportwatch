@@ -20,19 +20,21 @@ I've forgotten where I encountered the idea of keeping a skeletons file, but her
 
 ## Interesting commands
 
-0x03 - **Latchup** - lock battery
-0x04 - **bootblock** - Go to boot block
-0x05 - **console-write** - wonder what this writes to?
-0x09 - **upgrade** - takes a binary file as an argument
-0x10 - **eeprom-read** - reads from the eeprom, takes a 24-bit address for workout storage
-0x10 - **eeprom-query** - get total bytes of available storage
-0x14 - **desktop-read**
-0x15 - **desktop-write** - not clear why I want to read/write the desktop data block, but I'm in.
-0x26 - **flags-sync** - probably holds stateful flags
-0x36 - **option-gender** - pass a string (not a BOOL or INT!) to this field
-0x41 - **write-attaboy** - probably adds a string to the motivational post-workout 'attaboys'
-0x53 - **gpspatch-query** - reads patch level of GPS firmware
-0x54 - **gpspatch-update** - takes a binary, presumably GPS modem firmware! Oooooo...
-0xE4 - **test-gps** - (test no 1-4, satellite ID, and duration)
-0xE7 - **test-buzzer** - (1 = play, 0 = stop) ; (frequency in Hz, optional) ; (duration in ms, optional)
-0xEB - **test-accel** - 1 = sample accelerometer, 0 = exit test
+Here are some interesting commands I found in the *commands.xml* appendix...
+
+- 0x03 - **Latchup** - lock battery
+- 0x04 - **bootblock** - Go to boot block
+- 0x05 - **console-write** - wonder what this writes to?
+- 0x09 - **upgrade** - takes a binary file as an argument
+- 0x10 - **eeprom-read** - reads from the eeprom, takes a 24-bit address for workout storage
+- 0x10 - **eeprom-query** - get total bytes of available storage
+- 0x14 - **desktop-read**
+- 0x15 - **desktop-write** - not clear why I want to read/write the desktop data block, but I'm in.
+- 0x26 - **flags-sync** - probably holds stateful flags
+- 0x36 - **option-gender** - pass a string (not a BOOL or INT!) to this field
+- 0x41 - **write-attaboy** - probably adds a string to the motivational post-workout 'attaboys'
+- 0x53 - **gpspatch-query** - reads patch level of GPS firmware
+- 0x54 - **gpspatch-update** - takes a binary, presumably GPS modem firmware! Oooooo...
+- 0xE4 - **test-gps** - (test no 1-4, satellite ID, and duration)
+- 0xE7 - **test-buzzer** - (1 = play, 0 = stop) ; (frequency in Hz, optional) ; (duration in ms, optional)
+- 0xEB - **test-accel** - 1 = sample accelerometer, 0 = exit test
