@@ -1,0 +1,256 @@
+Hex
+01
+02
+02
+03
+04
+Opcode
+1
+2
+2
+3
+4
+Command
+Unknown
+restoreDefaults
+restore-defaults
+latchup
+bootblock
+05
+08 5
+8 console-write
+version
+09 9 upgrade
+10
+10 16
+16 eeprom-read
+readWorkouts
+11
+12
+13
+14 17
+18
+19
+20 eeprom-erase
+eeprom-query
+battery
+desktop-read
+15 21 desktop-write
+21
+26 33
+38 time
+flags-sync
+31 49 option-24hour
+32 50 option-metric
+33 51 option-weight
+35 53 option-age
+36 54 option-gender
+37 55 emped-info
+38 56 hrs-info
+3a 58 wo-loop
+3C 60 option-clock
+Commands.xml entry
+<command name='restoreDefaults' description='Restore device to factory settings and reset device when finished'/>
+<command name='restore-defaults' description='Restore device to factory defaults'/>
+<command name='latchup' description='Turn off battery'/>
+<command name='bootblock' description='Go to boot block'></command>
+<command name='console-write' description=''>
+<input name='text' description='text to write to device'' required='true' type='text'/>
+</command>
+<command name='version' description='Get the MSP firmware version number'></command>
+<command name='upgrade' description='Upgrade application firmware'>
+<input name='device.firmware.image' description='firmware image data bytes' required='true' type='binary' ></input>
+</command>
+<command name='eeprom-read' description='Read the workout storage data'>
+<input name='workout.raw.data.offset' description='the 24-bit offset at which to read workout data, default 0' required='false' type='unsigned' max='16777215' ></input>
+</command>
+<command name='readWorkouts' description='Reads workouts from the device into attribute workout.raw'></command>
+<command name='eeprom-erase' description='Erase all workout storage data'>
+<input name='magic' description='magic number required to call this command' required='true' type='unsigned' max='65535' ></input>
+</command>
+<command name='eeprom-query' description='Get the total available bytes of workout data storage, and the number of bytes in use'></command>
+<command name='battery' description='Get the battery state and charge level'></command>
+<command name='desktop-read' description='Read raw binary image of the desktop data block'/>
+<command name='desktop-write' description='Write raw binary image of the desktop data block'>
+<input name='data' description='data to be written' required='true' type='binary' ></input>
+</command>
+<command name='time' description='Set or get the time'>
+<input name='device.clock.time' description='count of seconds since 1/1/1970. Unix time, UTC' required='false' type='unsigned'/>
+<input name='device.clock.gmtOffset' description='The offset from GMT time in seconds' required='false' type='signed'/>
+<input name='device.clock.dstOffset' description='Offset in minutes due to daylight savings time' required='false' type='signed'/>
+</command>
+<command name='option-24hour' description='Get or set the 24 hour clock display setting'>
+<input name='device.clock.is24HourMode' description='If the clock should be in 24-hour mode' required='false' type='boolean' ></input>
+</command>
+<command name='option-metric' description='Get or set the display mode (kilometers or miles)'>
+<input name='device.display.metric' description='if 24-hour mode is employed' required='false' type='boolean' ></input>
+</command>
+<command name='option-weight' description='Get or set the weight of the user'>
+<input name='athlete.1.weight' description='Weight of the athlete in Kilograms' required='false' type='real' ></input>
+</command>
+<command name='option-age' description='Get or set the age of the user'>
+<input name='athlete.1.age' description='age of the athlete in years' required='false' type='unsigned' ></input>
+</command>
+<command name='option-gender' description='Get or set the gender of the user'>
+<input name='athlete.1.gender' description='gender value' required='false' type='text' ></input>
+</command>
+<command name='emped-info' description='Get information on linked empeds'>
+<input name='sensor.type.1.linked.index' description='the index (0-7) of the linked emped' required='true' type='unsigned' max='7' ></input>
+</command>
+<command name='hrs-info' description='Get information on linked heart rate straps'>
+<input name='sensor.type.2.linked.index' description='the index (0-7) of the linked heart rate strap' required='true' type='unsigned' max='7' ></input>
+</command>
+<command name='wo-loop' description='Get or set the workout loop'>
+<input name='device.workout.loop' description='comma delimited list of bottom stat and top workout stats' required='false' type='text' >
+<enums>
+<enum>Distance</enum>
+<enum>Pace</enum>
+<enum>Elapsed_Time</enum>
+<enum>Heart_Rate</enum>
+<enum>Calories</enum>
+<enum>Time</enum>
+</enums>
+</input>
+</command>
+<command name='option-clock' description=''>
+<input name='style' description='clock face style' required='false' type='unsigned' ></input>
+</command>3D
+3E
+40
+41
+42
+44
+45
+46
+47
+48
+4A
+51
+<command name='option-laps' description=''>
+<input name='device.laps.mode' description='laps mode' required='false' type='unsigned' ></input>
+<input name='device.laps.auto.units' description='auto laps units' required='false' type='unsigned' ></input>
+<input name='device.laps.auto.value' description='auto laps value' required='false' type='unsigned' ></input>
+<input name='device.laps.run.units' description='run interval units' required='false' type='unsigned' ></input>
+<input name='device.laps.run.value' description='run interval value' required='false' type='unsigned' ></input>
+<input name='device.laps.rest.units' description='rest interval units' required='false' type='unsigned' ></input>
+<input name='device.laps.rest.value' description='rest interval value' required='false' type='unsigned' ></input>
+61
+option-laps
+</command>
+<command name='option-reminder-mode' description='Set reminder mode and time of day for reminders'>
+<input name='enabled' description='enabled' required='false' type='boolean'/>
+<input name='time' description='time of day for reminders' required='false' type='unsigned'/>
+62 option-reminder-mode </command>
+<command name='option-sounds' description='Get or set the sounds mode'>
+<input name='device.sounds.mode' description='sounds mode' required='false' type='unsigned' ></input>
+64
+option-sounds
+</command>
+65
+writeAttaboy
+<command name='option-records' description='set or get user records'>
+<input name='totalDistance' description='total distance in meters' required='false' type='unsigned'/>
+<input name='1mile' description='fastest mile in milliseconds' required='false' type='unsigned'/>
+<input name='1km' description='fastest kilometer in milliseconds' required='false' type='unsigned'/>
+<input name='5km' description='fastest 5km' required='false' type='unsigned'/>
+<input name='10km' description='fastest 10km' required='false' type='unsigned'/>
+<input name='marathon' description='fastest marathon' required='false' type='unsigned'/>
+<input name='longest' description='longest single run in centimeters' required='false' type='unsigned'/>
+66
+option-records
+</command>
+<command name='option-clockset-mode' description='get or set method of setting clock'>
+<input name='mode' description='clock set mode, 0=PC and GPS, 1 = PC only, 2 = manual' required='false' type='unsigned'/>
+68 option-clockset-mode </command>
+69
+wo-loop-auto
+70
+option-speed
+71
+option-ui-mode
+72
+option-lap-metric
+74
+option-fuel
+81
+ephemeris-query
+<command name='ephemeris-query' description='Get information about ephemeris data'/>
+<command name='ephemeris-update' description='Update ephemeris data'></command>
+52
+53 82
+83 ephemeris-update
+gpspatch-query
+54 84 gpspatch-update
+E0 224 model
+E1 225 serial
+E2 226 hwrevision
+E3 227 emped-setup
+E4 228 test-gps
+E5 229 test-nordic
+E6 230 test-power
+<command name='updateEphemeris' description='Upgrade ephemeris'>
+<input name='image' description='Ephemeris image data bytes' required='true' type='binary'/>
+<input name='expiration' description='Expiration date of ephemeris data' required='true' type='unsigned'/>
+</command>
+<command name='gpspatch-query' description='Get information about currently installed GPS patch'/>
+<command name='gpspatch-update' description='Update GPS patch'>
+<input name='patch' description='GPS patch' required='true' type='binary'/>
+</command>
+<command name='model' description='Get or set model number'>
+<input name='model' description='model number' required='false' type='text' ></input>
+</command>
+<command name='serial' description='Get or set the device serial number'>
+<input name='serialnumber' description='serial number for set command' requried='false' type='text'/>
+</command>
+<command name='hwrevision' description='Get the device hardware revision'>
+<input name='hardwareRevision' description='hardware revision number' required='false' type='unsigned'/>
+</command>
+<command name='emped-setup' description='Commands for factory setup of empeds'>
+<input name='action' description='0=stop pairing, 1=start pairing, 2=get paired emped, 3=set factory emped, 4=get factory emped, 5=remove all empeds' required='true' type='unsigned' min='0' max='5'/>
+<input name='empedID' description='emped radio ID' requried='false' type='unsigned'/>
+<input name='payloadType' description='payload type' requried='false' type='unsigned'/>
+</command>
+<command name='test-gps' description='Test GPS receiver'>
+<input name='test' description='test to execute (0-4)' required='true' type='unsigned' min='0' max='4'/>
+<input name='svid' description='satalite ID' required='false' type='unsigned'/>
+<input name='period' description='test duration in seconds' required='false' type='unsigned'/>
+</command>
+<command name='test-nordic' description='Test Nordic radio'>
+<input name='test' description='test to execute (0-1)' required='true' type='unsigned' min='0' max='1'/>
+</command>
+<command name='test-power' description='Test power consumption'>
+<input name='test' description='test to execute (0-2)' required='true' type='unsigned' min='0' max='2'/>
+</command>E7 231 test-buzzer
+E8 232 test-backlight
+E9 233 test-button
+EA 234 test-adc
+EB 235 test-accel
+EC 236 test-sflash
+ED 237 test-lcd
+EE 238 test-reminders
+<command name='test-buzzer' description='Test buzzer'>
+<input name='test' description='test to execute (1 to play tone, 0 to stop)' required='true' type='unsigned' min='0' max='1'/>
+<input name='frequency' description='frequency in Hertz' required='false' type='unsigned'/>
+<input name='duration' description='duration in milliseconds' required='false' type='unsigned'/>
+</command>
+<command name='test-backlight' description='Test the backlight'>
+<input name='test' description='1 to turn on backlight, 2 to turn off, 0 to exit test' required='true' type='unsigned' min='0' max='1'/>
+</command>
+<command name='test-button' description='Test the buttons'>
+<input name='test' description='1 to read button state, 0 to exit test' required='true' type='unsigned' min='0' max='1'/>
+</command>
+<command name='test-adc' description='Test ADC'>
+<input name='test' description='1=sample VBAT_DIVIDE, 2=sample THERM_MEAS, 3=sample thermal sensor, 0=exit' required='true' type='unsigned' min='0' max='3'/>
+</command>
+<command name='test-accel' description='Test accelerometer'>
+<input name='test' description='1=sample accelerometer, 0=exit test' required='true' type='unsigned' min='0' max='1'/>
+</command>
+<command name='test-sflash' description='Test serial flash'>
+<input name='test' description='1=query device Ids, 0=exit test' required='true' type='unsigned' min='0' max='1'/>
+</command>
+<command name='test-lcd' description='Test LCD'>
+<input name='test' description='1=all black, 2=all white, 0=exit test' required='true' type='unsigned' min='0' max='2'/>
+</command>
+<command name='test-reminders' description='Set time of last run reminder'>
+<input name='time' description='time of last run reminder' required='false' type='unsigned'/>
+</command>
