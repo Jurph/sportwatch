@@ -19,12 +19,12 @@ NIKE_PRODUCT_ID = 0x5455
 # 0x02 - returns "B" array with 3rd byte present in the return value
 # 0x03 -
 # 0x05 - returns an array 0B (error code?) and then three values, including 3rd byte
-# 0x06
+# 0x06 -
 # 0xFF - error B
 # Fourth byte is OPCODE
 #
 
-COMMAND_BYTES = [0x08, 0x01, 0xFF, 0xE7, 0x00, 0x00, 0x00, 0x00,
+COMMAND_BYTES = [0x09, 0x01, 0x01, 0xEB, 0x00, 0x00, 0x00, 0x00,
                  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -75,7 +75,23 @@ def main():
     print "Found device: {}".format(str(device))
     print "Found interface: {}".format(str(interface))
     device.reset()
-    sendCommand(device, interface, rawCommand)  # Consider fuzzing this field to see why commands time out
+    while True:
+        firstByte = 0x09
+        secondByte = 0x00
+        thirdByte = 0x00
+        opcode = 0xE7
+        for threeb in range(255):
+            thirdByte = threeb
+            for toob in range(255):
+                secondByte = toob
+                for ferb in range(255):
+                    firstByte = ferb
+                    COMMAND_BYTES = [firstByte, secondByte, thirdByte, opcode]
+                    rawCommand = "".join(map(chr, COMMAND_BYTES))
+                    sendCommand(device, interface, rawCommand)
+                    ferb += 1
+                toob += 1
+            threeb += 1
     return 0
 
 
