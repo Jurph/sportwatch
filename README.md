@@ -35,3 +35,4 @@ I've forgotten where I encountered the idea of keeping a skeletons file, but her
 0x54 - **gpspatch-update** - takes a binary, presumably GPS modem firmware! Oooooo...
 0xE4 - **test-gps** - (test no 1-4, satellite ID, and duration)
 0xE7 - **test-buzzer** - (1 = play, 0 = stop) ; (frequency in Hz, optional) ; (duration in ms, optional)
+0xEB - **test-accel** - 1 = sample accelerometer, 0 = exit test
